@@ -1,377 +1,509 @@
 <!DOCTYPE html>
 <html lang="lb">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>P3 – Bauerenhaff</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>P2 – D’Fréijoer – Spiller</title>
 
 <style>
 @font-face{
   font-family:'Schoulschrëft';
   src:url('https://raw.githubusercontent.com/albrechtclaire1007/schoulschreft/main/schoulschreft_bold%5B2%5D.TTF') format('truetype');
   font-weight:bold;
-  font-style:normal;
-  font-display:swap;
 }
 
 :root{
-  --bg1:#E7F5FF;
-  --bg2:#CFEAFF;
-  --bar:#6FAFE6;
-  --barBorder:#4D90CD;
-  --ink:#1f1f1f;
+  --green-light:#d8ebd4;
+  --green-mid:#8cc987;
+  --green-dark:#4f9c72;
+
+  --ink:#183525;
   --white:#fff;
+  --ok:#b7f0c8;
+  --bad:#ffcccc;
+
   --border:3px;
+  --radius:18px;
   --shadow:0 10px 24px rgba(0,0,0,.08);
   --pad:clamp(10px,2.2vw,16px);
-  --r:18px;
-  --line:#d7e8f7;
-  --soft:#ffffff;
-  --good:#b8efc8;
-  --bad:#ffd6d6;
-  --cardBack:url('https://i.postimg.cc/vHSHcbN9/cardback-p3.png');
 }
 
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
   user-select:none;
-  outline:none;
 }
 
 html,body{
+  margin:0;
   height:100%;
-  margin:0;
-  background:linear-gradient(135deg,var(--bg2),var(--bg1));
-  color:var(--ink);
   font-family:'Schoulschrëft', Arial, sans-serif;
+  background:linear-gradient(135deg,var(--green-light),var(--green-mid));
+  color:var(--ink);
 }
 
-.topBar{
+/* ===== top nav ===== */
+.top{
   position:sticky;
-  top:10px;
+  top:8px;
   z-index:10;
-  width:min(1200px,96vw);
-  margin:10px auto 0;
-  background:var(--bar);
-  border:var(--border) solid var(--barBorder);
-  border-radius:999px;
-  box-shadow:var(--shadow);
-  padding:10px 12px;
-  display:grid;
-  grid-template-columns:70px 1fr 70px;
-  align-items:center;
-  gap:10px;
-}
-
-.barBtn{
-  border:none;
-  background:transparent;
-  cursor:pointer;
-  display:grid;
-  place-items:center;
-  width:54px;
-  height:54px;
-}
-
-.barBtn:active{
-  transform:scale(.98);
-}
-
-.barBtn img{
-  width:46px;
-  height:46px;
-  object-fit:contain;
-}
-
-.barBtn.back img{
-  transform:rotate(180deg);
-}
-
-.barTitle{
-  visibility:hidden;
-  height:0;
-  margin:0;
-}
-
-.wrap{
-  width:min(1200px,96vw);
-  margin:18px auto 26px;
-  padding:var(--pad);
-}
-
-.card{
-  background:rgba(255,255,255,.8);
-  border:var(--border) solid rgba(255,255,255,.65);
-  border-radius:var(--r);
-  box-shadow:var(--shadow);
-  padding:clamp(12px,2.2vw,18px);
-  min-height:280px;
-}
-
-.gameControls{
   display:flex;
+  gap:10px;
   justify-content:center;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-.gameCtrlBtn{
-  border:3px solid var(--line);
+  align-items:center;
+  background:#fff;
+  border:3px solid var(--green-dark);
   border-radius:16px;
+  padding:.28rem .7rem;
+  margin:10px auto;
+  width:fit-content;
+  box-shadow:var(--shadow);
+}
+
+.iconBtn{
+  font-size:1.25rem;
+  border:3px solid var(--ink);
   background:#fff;
-  box-shadow:var(--shadow);
-  width:72px;
-  height:72px;
-  display:grid;
-  place-items:center;
+  border-radius:12px;
   cursor:pointer;
+  padding:.2rem .55rem;
 }
 
-.gameCtrlBtn:active{
-  transform:scale(.98);
-}
-
-.gameCtrlBtn img{
-  width:48px;
-  height:48px;
-  object-fit:contain;
-}
-
-.choiceGrid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:14px;
-}
-
-.choiceBtn{
-  border:3px solid var(--line);
-  border-radius:18px;
-  background:var(--soft);
-  box-shadow:var(--shadow);
-  padding:12px;
-  cursor:pointer;
-  min-height:190px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.choiceBtn:active{
-  transform:scale(.98);
-}
-
-.choiceBtn img{
-  width:100%;
-  max-width:180px;
-  max-height:145px;
-  object-fit:contain;
-  display:block;
-  margin:0 auto;
-}
-
-.memoryGrid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;
-}
-
-.memoryCard{
-  min-height:130px;
-  border:3px solid var(--line);
-  border-radius:18px;
-  background:var(--soft);
-  box-shadow:var(--shadow);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:8px;
-  color:var(--ink);
-  overflow:hidden;
-  font-family:'Schoulschrëft', Arial, sans-serif;
-  font-size:clamp(1.15rem,2vw,1.45rem);
-  line-height:1.15;
-}
-
-.memoryCard:active{
-  transform:scale(.98);
-}
-
-.memoryCard img{
-  width:100%;
-  max-width:110px;
-  max-height:90px;
-  object-fit:contain;
-}
-
-.memoryCard.back{
-  background-image:var(--cardBack);
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-}
-
-.memoryCard.back img,
-.memoryCard.back .memoryWord{
-  display:none;
-}
-
-.memoryWord{
-  padding:6px;
-}
-
-.pluralWrap{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.pluralPrompt{
-  display:grid;
-  place-items:center;
-  padding:8px;
-  min-height:180px;
-}
-
-.pluralPrompt img{
-  width:100%;
-  max-width:240px;
-  max-height:180px;
-  object-fit:contain;
-}
-
-.pluralChoices{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-
-.pluralBtn{
-  border:3px solid var(--line);
-  border-radius:14px;
-  background:#fff;
-  padding:12px;
-  cursor:pointer;
-  font-family:'Schoulschrëft', Arial, sans-serif;
-  font-size:clamp(1.2rem,2.7vw,1.8rem);
-  color:var(--ink);
-}
-
-.good{
-  background:var(--good) !important;
-}
-
-.bad{
-  background:var(--bad) !important;
+#flowLabel{
+  font-size:1.05rem;
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
 }
 
-@media (max-width:900px){
-  .choiceGrid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
-
-  .memoryGrid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
+/* ===== sections ===== */
+.wrap{
+  min-height:calc(100vh - 70px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1.1rem;
+  padding:var(--pad);
 }
 
-@media (max-width:760px){
-  .choiceGrid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+h1{
+  margin:.2rem 0;
+  font-size:clamp(1.6rem,3.8vw,2.6rem);
+  text-align:center;
+}
 
-  .memoryGrid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+/* ===== game 1 grid ===== */
+.grid{
+  width:min(980px,96vw);
+  display:grid;
+  gap:clamp(.55rem,1.6vw,1rem);
+  grid-template-columns:repeat(8, minmax(0, 1fr));
+}
+
+@media (max-width:860px){
+  .grid{
+    grid-template-columns:repeat(6, minmax(0, 1fr));
   }
 }
 
 @media (max-width:520px){
-  .choiceGrid,
-  .memoryGrid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+  .grid{
+    grid-template-columns:repeat(4, minmax(0, 1fr));
   }
+}
 
-  .choiceBtn{
-    min-height:150px;
-  }
+.imgToken{
+  background:#fff;
+  border:5px solid var(--green-mid);
+  border-radius:18px;
+  aspect-ratio:1/1;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
 
-  .gameCtrlBtn{
-    width:64px;
-    height:64px;
-  }
+.imgToken img{
+  width:82%;
+  height:82%;
+  object-fit:contain;
+}
 
-  .gameCtrlBtn img{
-    width:42px;
-    height:42px;
+.flash-good{
+  background:var(--ok)!important;
+}
+
+.flash-bad{
+  background:var(--bad)!important;
+}
+
+.soundBtn{
+  width:64px;
+  height:48px;
+  border:3px solid var(--ink);
+  border-radius:14px;
+  background:#fff;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+.soundBtn img{
+  width:90%;
+  height:90%;
+  object-fit:contain;
+}
+
+/* ===== spell ===== */
+.bigBox{
+  width:min(40vmin,360px,85vw);
+  aspect-ratio:1/1;
+  border:8px solid var(--green-mid);
+  border-radius:26px;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  box-shadow:var(--shadow);
+}
+
+.bigBox img{
+  width:68%;
+  height:68%;
+  object-fit:contain;
+}
+
+.slots,
+.letters{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:min(980px,96vw);
+}
+
+.slot{
+  min-width:2.6rem;
+  min-height:3.2rem;
+  border-bottom:5px solid var(--ink);
+  font-size:2rem;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+
+.letter{
+  border:3px solid var(--ink);
+  border-radius:12px;
+  padding:.25rem .55rem;
+  font-size:1.9rem;
+  cursor:pointer;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+
+.btn{
+  border:3px solid var(--ink);
+  background:#fff;
+  border-radius:14px;
+  padding:.4rem .85rem;
+  cursor:pointer;
+  font-family:'Schoulschrëft';
+  font-size:1.05rem;
+  box-shadow:var(--shadow);
+}
+
+/* ===== memory ===== */
+.memGrid{
+  width:min(980px,96vw);
+  display:grid;
+  gap:clamp(.6rem,1.8vw,1rem);
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width:780px){
+  .memGrid{
+    grid-template-columns:repeat(3,1fr);
   }
+}
+
+@media (max-width:520px){
+  .memGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+.card{
+  aspect-ratio:5/3;
+  perspective:1000px;
+  cursor:pointer;
+}
+
+.inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:.28s;
+  transform-style:preserve-3d;
+}
+
+.flipped .inner{
+  transform:rotateY(180deg);
+}
+
+.face{
+  position:absolute;
+  inset:0;
+  border-radius:16px;
+  border:5px solid var(--green-mid);
+  background:#fff;
+  display:grid;
+  place-items:center;
+  backface-visibility:hidden;
+  box-shadow:var(--shadow);
+}
+
+.front{
+  background:#fff url('https://i.postimg.cc/gnrf0LLw/cardback-p2.png') center/68% no-repeat;
+}
+
+.back{
+  transform:rotateY(180deg);
+}
+
+.memWord{
+  font-size:1.6rem;
+  text-align:center;
+  padding:.4rem;
+}
+
+/* ===== sort ===== */
+.sortLayout{
+  width:min(980px,96vw);
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:.8rem;
+}
+
+@media (max-width:820px){
+  .sortLayout{
+    grid-template-columns:1fr;
+    max-width:560px;
+  }
+}
+
+.dropCol{
+  background:#fff;
+  border:8px solid var(--green-mid);
+  border-radius:22px;
+  padding:.7rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.6rem;
+  min-height:230px;
+  box-shadow:var(--shadow);
+}
+
+.dropCol img{
+  max-width:140px;
+  height:auto;
+}
+
+.dropInner{
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem;
+  justify-content:center;
+  padding-bottom:.4rem;
+}
+
+.sortPool{
+  margin-top:.8rem;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.55rem;
+  justify-content:center;
+  max-width:min(980px,96vw);
+}
+
+.sortItem{
+  width:64px;
+  height:64px;
+  border:4px solid var(--green-mid);
+  border-radius:16px;
+  background:#fff;
+  cursor:grab;
+  display:grid;
+  place-items:center;
+  box-shadow:var(--shadow);
+}
+
+.sortItem:active{
+  cursor:grabbing;
+}
+
+.sortItem img{
+  width:84%;
+  height:84%;
+  object-fit:contain;
+}
+
+.pulseOk{
+  outline:4px solid var(--ok);
+  outline-offset:2px;
+}
+
+.pulseBad{
+  outline:4px solid var(--bad);
+  outline-offset:2px;
 }
 </style>
 </head>
 
 <body>
-<div class="topBar">
-  <button class="barBtn back" id="prev" aria-label="Virdrun">
-    <img src="https://i.postimg.cc/QBYTSN08/p3arrow.png" alt="" />
-  </button>
 
-  <h1 class="barTitle">.</h1>
-
-  <button class="barBtn" id="next" aria-label="Nächst">
-    <img src="https://i.postimg.cc/QBYTSN08/p3arrow.png" alt="" />
-  </button>
+<div class="top">
+  <button class="iconBtn" id="prev" aria-label="virdrun">◀</button>
+  <span id="flowLabel">1. Spill</span>
+  <button class="iconBtn" id="next" aria-label="nächst">▶</button>
 </div>
 
-<div class="wrap">
-  <div class="card">
-    <div id="gameArea"></div>
+<section class="wrap" id="g1">
+  <h1>Lauschter a klick</h1>
+  <div class="grid" id="grid1"></div>
+  <button class="soundBtn" id="play1" aria-label="lauschter">
+    <img src="https://i.postimg.cc/ZqG1TRbC/lauschter-p2.png" alt="">
+  </button>
+</section>
+
+<section class="wrap hidden" id="g2">
+  <h1>Memory</h1>
+  <div class="memGrid" id="memGrid"></div>
+  <button class="btn" id="memReset">↻ Reset</button>
+</section>
+
+<section class="wrap hidden" id="g3">
+  <h1>Schreif d’Wuert</h1>
+  <div class="bigBox">
+    <img id="spellImg" alt="">
   </div>
-</div>
+  <div class="slots" id="spellSlots"></div>
+  <div class="letters" id="spellLetters"></div>
+  <div style="display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center;">
+    <button class="btn" id="spellReset">↻ Reset</button>
+    <button class="btn" id="spellHear">🔊 Lauschter</button>
+    <button class="btn" id="spellNext">Weider</button>
+  </div>
+</section>
+
+<section class="wrap hidden" id="g4">
+  <h1>Sortéier no Genre</h1>
+
+  <div class="sortLayout">
+    <div class="dropCol" data-cat="masc">
+      <img src="https://i.postimg.cc/MvXhGffV/mannlech.png" alt="">
+      <div class="dropInner"></div>
+    </div>
+    <div class="dropCol" data-cat="fem">
+      <img src="https://i.postimg.cc/7fbpLJJz/weiblech.png" alt="">
+      <div class="dropInner"></div>
+    </div>
+    <div class="dropCol" data-cat="neut">
+      <img src="https://i.postimg.cc/3dWPw00g/sachlech.png" alt="">
+      <div class="dropInner"></div>
+    </div>
+  </div>
+
+  <div class="sortPool" id="sortPool"></div>
+  <button class="btn" id="sortReset">↻ Reset</button>
+</section>
+
+<audio id="speaker"></audio>
 
 <script>
-const AUDIO_BASE = 'https://github.com/albrechtclaire1007/p3bauerenhaff/raw/refs/heads/main/';
+/* ================= DATA ================= */
+const AUDIO = "https://github.com/albrechtclaire1007/p2freijoer/raw/refs/heads/main/";
 
 const ITEMS = [
-  { id:'bauer', singular:'de Bauer', plural:'zwee Baueren', img:'https://i.postimg.cc/Z0dNtv6g/bauer.png', audio:'BAUER.mp3' },
-  { id:'iesel', singular:'den Iesel', plural:'zwee Ieselen', img:'https://i.postimg.cc/R3nqzcwx/iesel.png', audio:'IESEL.mp3' },
-  { id:'int', singular:'d’Int', plural:'zwou Inten', img:'https://i.postimg.cc/8FrsVhLP/int.png', audio:'INT.mp3' },
-  { id:'kou', singular:'d’Kou', plural:'zwou Kéi', img:'https://i.postimg.cc/Fd5zF7xR/kou.png', audio:'KOU.mp3' },
-  { id:'geess', singular:'d’Geess', plural:'zwou Geessen', img:'https://i.postimg.cc/PC7Nc6pp/gees.png', audio:'GEESS.mp3' },
-  { id:'hong', singular:'d’Hong', plural:'zwee Hénger', img:'https://i.postimg.cc/R3nqzcwC/hong.png', audio:'HONG.mp3' },
-  { id:'jippelchen', singular:'d’Jippelchen', plural:'zwee Jippelcher', img:'https://i.postimg.cc/phbrVpBN/jippelchen.png', audio:'JIPPELCHEN.mp3' },
-  { id:'kallef', singular:'d’Kallef', plural:'zwee Källef', img:'https://i.postimg.cc/R65hCNTZ/kallef.png', audio:'KALLEF.mp3' },
-  { id:'schof', singular:'d’Schof', plural:'zwee Schof', img:'https://i.postimg.cc/jwH5Dt89/schof.png', audio:'SCHOF.mp3' },
-  { id:'lammchen', singular:'d’Lämmchen', plural:'zwee Lämmercher', img:'https://i.postimg.cc/zbZvDVkR/lammchen.png', audio:'LAMMCHEN.mp3' },
-  { id:'paerd', singular:'d’Päerd', plural:'zwee Päerd', img:'https://i.postimg.cc/R67FW4Ps/paerd.png', audio:'PAERD.mp3' },
-  { id:'fillen', singular:'d’Fillen', plural:'zwee Fillen', img:'https://i.postimg.cc/5YwfpJCW/fillen.png', audio:'FILLEN.mp3' },
-  { id:'schwain', singular:'d’Schwäin', plural:'zwee Schwäin', img:'https://i.postimg.cc/ZqCrfXHF/schwain.png', audio:'SCHWAIN.mp3' },
-  { id:'fierkel', singular:'d’Fierkel', plural:'zwee Fierkelen', img:'https://i.postimg.cc/FdjhGvJw/fiekel.png', audio:'FIERKEL.mp3' }
+  {
+    id: "bei",
+    word: "Bei",
+    img: "https://i.postimg.cc/rRSkHwY8/bei.png",
+    audio: "p2_bei.mp3",
+    g: "fem"
+  },
+  {
+    id: "blei",
+    word: "Bléi",
+    img: "https://i.postimg.cc/Hj5dn6W6/blei.png",
+    audio: "p2_blei.mp3",
+    g: "fem"
+  },
+  {
+    id: "blumm",
+    word: "Blumm",
+    img: "https://i.postimg.cc/9wGhkQNR/blumm.jpg",
+    audio: "p2_blumm.mp3",
+    g: "fem"
+  },
+  {
+    id: "lammchen",
+    word: "Lämmchen",
+    img: "https://i.postimg.cc/vxWsKZSx/lammchen.png",
+    audio: "p2_lammchen.mp3",
+    g: "neut"
+  },
+  {
+    id: "ouschteree",
+    word: "Ouschteree",
+    img: "https://i.postimg.cc/XBwbPYDC/ouschteree.jpg",
+    audio: "p2_ouschteree.mp3",
+    g: "fem"
+  },
+  {
+    id: "ouschterhues",
+    word: "Ouschterhues",
+    img: "https://i.postimg.cc/WqMvy1fr/ouschterhues.jpg",
+    audio: "p2_ouschterhues.mp3",
+    g: "masc"
+  },
+  {
+    id: "schof",
+    word: "Schof",
+    img: "https://i.postimg.cc/qgn4q1BL/schof.jpg",
+    audio: "p2_schof.mp3",
+    g: "neut"
+  },
+  {
+    id: "sonn",
+    word: "Sonn",
+    img: "https://i.postimg.cc/WtrTz5pS/sonn.png",
+    audio: "p2_sonn.mp3",
+    g: "fem"
+  },
+  {
+    id: "villchen",
+    word: "Villchen",
+    img: "https://i.postimg.cc/dDdw35Q4/villchen.jpg",
+    audio: "p2_villcher.mp3",
+    g: "neut"
+  },
+  {
+    id: "wollek",
+    word: "Wollek",
+    img: "https://i.postimg.cc/xqHn86jp/wollek.jpg",
+    audio: "p2_wollek.mp3",
+    g: "fem"
+  }
 ];
 
-const gameArea = document.getElementById('gameArea');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
+/* ================= HELPERS ================= */
+const speaker = document.getElementById("speaker");
 
-let currentGame = 0;
-let audio = null;
-
-let listenOrder = [];
-let listenIndex = 0;
-let listenLocked = false;
-
-let memoryCards = [];
-let memoryFirst = null;
-let memorySecond = null;
-let memoryLocked = false;
-
-let pluralOrder = [];
-let pluralIndex = 0;
-let pluralLocked = false;
+function play(a){
+  speaker.src = AUDIO + a;
+  speaker.play();
+}
 
 function shuffle(arr){
   const a = [...arr];
@@ -382,413 +514,338 @@ function shuffle(arr){
   return a;
 }
 
-function stopAudio(){
-  if(audio){
-    audio.pause();
-    audio.currentTime = 0;
+function flash(el, ok = true){
+  el.classList.remove("pulseOk", "pulseBad");
+  el.classList.add(ok ? "pulseOk" : "pulseBad");
+  setTimeout(() => el.classList.remove("pulseOk", "pulseBad"), 450);
+}
+
+/* ================= NAV ================= */
+const pages = ["g1", "g2", "g3", "g4"];
+let p = 0;
+
+document.getElementById("prev").onclick = () => show(p - 1);
+document.getElementById("next").onclick = () => show(p + 1);
+
+function show(i){
+  p = Math.max(0, Math.min(pages.length - 1, i));
+  pages.forEach((id, n) => {
+    document.getElementById(id).classList.toggle("hidden", n !== p);
+  });
+  document.getElementById("flowLabel").textContent = (p + 1) + ". Spill";
+}
+
+show(0);
+
+/* ================= GAME 1: listen + click ================= */
+const grid = document.getElementById("grid1");
+let bag1 = [];
+let target1 = null;
+
+function initG1(){
+  grid.innerHTML = "";
+  bag1 = shuffle(ITEMS);
+
+  ITEMS.forEach(it => {
+    const b = document.createElement("div");
+    b.className = "imgToken";
+    b.innerHTML = `<img src="${it.img}" alt="">`;
+
+    b.onclick = () => {
+      if(!target1) return;
+
+      if(it.id === target1.id){
+        b.classList.add("flash-good");
+        setTimeout(() => b.classList.remove("flash-good"), 450);
+        nextG1();
+      }else{
+        b.classList.add("flash-bad");
+        setTimeout(() => b.classList.remove("flash-bad"), 450);
+      }
+    };
+
+    grid.appendChild(b);
+  });
+
+  nextG1();
+}
+
+function nextG1(){
+  if(bag1.length === 0){
+    bag1 = shuffle(ITEMS);
   }
+  target1 = bag1.pop();
+  play(target1.audio);
 }
 
-function playAudio(file){
-  stopAudio();
-  audio = new Audio(AUDIO_BASE + file);
-  audio.play().catch(() => {});
+document.getElementById("play1").onclick = () => {
+  if(target1) play(target1.audio);
+};
+
+initG1();
+
+/* ================= GAME 2: MEMORY ================= */
+const memGrid = document.getElementById("memGrid");
+const memReset = document.getElementById("memReset");
+
+let memFirst = null;
+let memLock = false;
+let memMatched = 0;
+let memDeck = [];
+
+function buildMemory(){
+  memGrid.innerHTML = "";
+  memFirst = null;
+  memLock = false;
+  memMatched = 0;
+
+  const base = shuffle(ITEMS).slice(0, 8);
+
+  memDeck = shuffle(
+    base.flatMap(it => [
+      { key: it.id, type: "img", it },
+      { key: it.id, type: "word", it }
+    ])
+  );
+
+  memDeck.forEach((c, idx) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.key = c.key;
+    card.dataset.type = c.type;
+    card.dataset.idx = idx;
+
+    const backContent = c.type === "img"
+      ? `<img src="${c.it.img}" style="width:78%;height:78%;object-fit:contain" alt="">`
+      : `<div class="memWord">${c.it.word}</div>`;
+
+    card.innerHTML = `
+      <div class="inner">
+        <div class="face front"></div>
+        <div class="face back">${backContent}</div>
+      </div>
+    `;
+
+    card.onclick = () => flipCard(card, c);
+    memGrid.appendChild(card);
+  });
 }
 
-function updateTopBar(){
-  prevBtn.style.opacity = currentGame === 0 ? '.45' : '1';
-  nextBtn.style.opacity = currentGame === 2 ? '.45' : '1';
-}
+function flipCard(card, c){
+  if(memLock) return;
+  if(card.classList.contains("matched")) return;
+  if(card.classList.contains("flipped")) return;
 
-function initListenGame(){
-  listenOrder = shuffle(ITEMS);
-  listenIndex = 0;
-  listenLocked = false;
-}
+  card.classList.add("flipped");
 
-function currentListenItem(){
-  return listenOrder[listenIndex];
-}
+  if(c.type === "word"){
+    play(c.it.audio);
+  }
 
-function renderListenGame(){
-  const item = currentListenItem();
-
-  if(!item){
-    currentGame = 1;
-    renderCurrentGame();
+  if(!memFirst){
+    memFirst = { card, c };
     return;
   }
 
-  listenLocked = false;
+  memLock = true;
+  const a = memFirst;
+  const b = { card, c };
 
-  let html = '';
-  html += '<div class="gameControls">';
-  html += '<button class="gameCtrlBtn" id="gamePlay" aria-label="Play"><img src="https://i.postimg.cc/ZB9yQkMt/p3play.png" alt="" /></button>';
-  html += '<button class="gameCtrlBtn" id="gameReplay" aria-label="Replay"><img src="https://i.postimg.cc/ft30P4rQ/p3replay.png" alt="" /></button>';
-  html += '</div>';
-  html += '<div class="choiceGrid">';
+  const isMatch = a.c.key === b.c.key && a.c.type !== b.c.type;
 
-  ITEMS.forEach(choice => {
-    html += `<button class="choiceBtn" data-id="${choice.id}"><img src="${choice.img}" alt="" /></button>`;
-  });
+  if(isMatch){
+    a.card.classList.add("matched");
+    b.card.classList.add("matched");
+    memMatched++;
+    memFirst = null;
+    memLock = false;
 
-  html += '</div>';
-  gameArea.innerHTML = html;
-
-  document.getElementById('gamePlay').onclick = function(){
-    playAudio(item.audio);
-  };
-
-  document.getElementById('gameReplay').onclick = function(){
-    playAudio(item.audio);
-  };
-
-  gameArea.querySelectorAll('.choiceBtn').forEach(btn => {
-    btn.onclick = function(){
-      if(listenLocked) return;
-
-      const pickedId = btn.getAttribute('data-id');
-
-      if(pickedId === item.id){
-        listenLocked = true;
-        btn.classList.add('good');
-        setTimeout(function(){
-          listenIndex++;
-          if(listenIndex >= listenOrder.length){
-            currentGame = 1;
-          }
-          renderCurrentGame();
-        }, 450);
-      }else{
-        btn.classList.add('bad');
-        setTimeout(function(){
-          btn.classList.remove('bad');
-        }, 350);
-      }
-    };
-  });
-
-  setTimeout(function(){
-    if(currentGame === 0 && currentListenItem() && currentListenItem().id === item.id){
-      playAudio(item.audio);
+    if(memMatched === 8){
+      setTimeout(buildMemory, 700);
     }
-  }, 150);
+  }else{
+    setTimeout(() => {
+      a.card.classList.remove("flipped");
+      b.card.classList.remove("flipped");
+      memFirst = null;
+      memLock = false;
+    }, 650);
+  }
 }
 
-function initMemoryGame(){
-  const cards = [];
+memReset.onclick = buildMemory;
+buildMemory();
 
-  ITEMS.forEach(item => {
-    cards.push({
-      uid:'img-' + item.id,
-      pair:item.id,
-      kind:'img',
-      img:item.img,
-      text:item.singular,
-      audio:item.audio,
-      open:false,
-      matched:false
-    });
+/* ================= GAME 3: SPELL ================= */
+let spellBag = [];
+let cur = null;
 
-    cards.push({
-      uid:'word-' + item.id,
-      pair:item.id,
-      kind:'word',
-      img:item.img,
-      text:item.singular,
-      audio:item.audio,
-      open:false,
-      matched:false
-    });
-  });
+const slots = document.getElementById("spellSlots");
+const letters = document.getElementById("spellLetters");
+const img = document.getElementById("spellImg");
 
-  memoryCards = shuffle(cards);
-  memoryFirst = null;
-  memorySecond = null;
-  memoryLocked = false;
+function initSpellBag(){
+  spellBag = shuffle(ITEMS);
 }
 
-function renderMemoryGame(){
-  const allMatched = memoryCards.length > 0 && memoryCards.every(card => card.matched);
-
-  if(allMatched){
-    initMemoryGame();
+function buildSpell(){
+  if(spellBag.length === 0){
+    initSpellBag();
   }
 
-  let html = '<div class="memoryGrid">';
+  cur = spellBag.pop();
+  img.src = cur.img;
 
-  memoryCards.forEach(card => {
-    const isOpen = card.open || card.matched;
-    let inside = '';
+  slots.innerHTML = "";
+  letters.innerHTML = "";
 
-    if(isOpen){
-      inside = card.kind === 'img'
-        ? `<img src="${card.img}" alt="" />`
-        : `<div class="memoryWord">${card.text}</div>`;
+  const chars = [...cur.word];
+
+  chars.forEach((_, i) => {
+    const s = document.createElement("div");
+    s.className = "slot";
+    s.dataset.i = i;
+
+    s.onclick = () => {
+      if(!s.textContent) return;
+
+      const ch = s.textContent;
+      s.textContent = "";
+
+      const l = document.createElement("div");
+      l.className = "letter";
+      l.textContent = ch;
+      l.onclick = () => placeLetter(l);
+
+      letters.appendChild(l);
+    };
+
+    slots.appendChild(s);
+  });
+
+  shuffle(chars).forEach(ch => {
+    const l = document.createElement("div");
+    l.className = "letter";
+    l.textContent = ch;
+    l.onclick = () => placeLetter(l);
+    letters.appendChild(l);
+  });
+}
+
+function placeLetter(letterEl){
+  const empty = [...slots.children].find(s => !s.textContent);
+  if(!empty) return;
+
+  empty.textContent = letterEl.textContent;
+  letterEl.remove();
+
+  checkSpell();
+}
+
+function checkSpell(){
+  const built = [...slots.children].map(s => s.textContent).join("");
+
+  if(built.length !== cur.word.length) return;
+
+  if(built === cur.word){
+    setTimeout(buildSpell, 550);
+  }else{
+    slots.classList.add("pulseBad");
+    setTimeout(() => slots.classList.remove("pulseBad"), 300);
+  }
+}
+
+document.getElementById("spellHear").onclick = () => {
+  if(cur) play(cur.audio);
+};
+
+document.getElementById("spellNext").onclick = buildSpell;
+document.getElementById("spellReset").onclick = buildSpell;
+
+initSpellBag();
+buildSpell();
+
+/* ================= GAME 4: SORT ================= */
+const pool = document.getElementById("sortPool");
+const sortReset = document.getElementById("sortReset");
+
+let selectedSort = null;
+
+function buildSort(){
+  document.querySelectorAll(".dropInner").forEach(d => d.innerHTML = "");
+  pool.innerHTML = "";
+  selectedSort = null;
+
+  ITEMS.forEach(it => {
+    const b = document.createElement("div");
+    b.className = "sortItem";
+    b.draggable = true;
+    b.dataset.g = it.g;
+    b.dataset.id = it.id;
+    b.innerHTML = `<img src="${it.img}" alt="">`;
+
+    b.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", it.id);
+      e.dataTransfer.setData("cat", it.g);
+      selectedSort = b;
+    });
+
+    b.onclick = () => {
+      if(selectedSort === b){
+        selectedSort = null;
+        flash(b, true);
+      }else{
+        selectedSort = b;
+        flash(b, true);
+      }
+    };
+
+    pool.appendChild(b);
+  });
+}
+
+document.querySelectorAll(".dropCol").forEach(col => {
+  col.addEventListener("dragover", e => e.preventDefault());
+
+  col.addEventListener("drop", e => {
+    e.preventDefault();
+
+    const id = e.dataTransfer.getData("text/plain");
+    const cat = e.dataTransfer.getData("cat");
+    const want = col.dataset.cat;
+    const itemEl = [...document.querySelectorAll(".sortItem")].find(x => x.dataset.id === id);
+
+    if(!itemEl) return;
+
+    if(cat === want){
+      col.querySelector(".dropInner").appendChild(itemEl);
+      flash(col, true);
     }else{
-      inside = '<img src="https://i.postimg.cc/vHSHcbN9/cardback-p3.png" alt="" />';
+      flash(col, false);
+      flash(itemEl, false);
     }
-
-    html += `<button class="memoryCard ${isOpen ? '' : 'back'} ${card.matched ? 'good' : ''}" data-uid="${card.uid}">${inside}</button>`;
   });
 
-  html += '</div>';
-  gameArea.innerHTML = html;
+  col.onclick = () => {
+    if(!selectedSort) return;
 
-  gameArea.querySelectorAll('.memoryCard').forEach(btn => {
-    btn.onclick = function(){
-      if(memoryLocked) return;
+    const want = col.dataset.cat;
+    const cat = selectedSort.dataset.g;
 
-      const card = memoryCards.find(c => c.uid === btn.getAttribute('data-uid'));
-      if(!card || card.open || card.matched) return;
-
-      card.open = true;
-
-      if(card.kind === 'word'){
-        playAudio(card.audio);
-      }
-
-      if(memoryFirst === null){
-        memoryFirst = card;
-        renderMemoryGame();
-        return;
-      }
-
-      memorySecond = card;
-      memoryLocked = true;
-      renderMemoryGame();
-
-      const isMatch = memoryFirst.pair === memorySecond.pair && memoryFirst.kind !== memorySecond.kind;
-
-      if(isMatch){
-        setTimeout(function(){
-          memoryFirst.matched = true;
-          memorySecond.matched = true;
-          memoryFirst = null;
-          memorySecond = null;
-          memoryLocked = false;
-          renderMemoryGame();
-        }, 450);
-      }else{
-        setTimeout(function(){
-          memoryFirst.open = false;
-          memorySecond.open = false;
-          memoryFirst = null;
-          memorySecond = null;
-          memoryLocked = false;
-          renderMemoryGame();
-        }, 700);
-      }
-    };
-  });
-}
-
-function buildWrongPlurals(item){
-  const correct = item.plural;
-  const clean = correct.replace(/^zwee\s+|^zwou\s+/, '').trim();
-  const article = correct.startsWith('zwou ') ? 'zwou ' : 'zwee ';
-  const wrongs = new Set();
-
-  function add(form){
-    if(form && form !== correct){
-      wrongs.add(form);
+    if(cat === want){
+      col.querySelector(".dropInner").appendChild(selectedSort);
+      flash(col, true);
+      selectedSort = null;
+    }else{
+      flash(col, false);
+      flash(selectedSort, false);
     }
-  }
+  };
+});
 
-  if(article === 'zwou '){
-    add('zwou ' + clean + 'en');
-    add('zwou ' + clean + 'er');
-    add('zwou ' + clean + 's');
-    add('zwee ' + clean);
-  }else{
-    add('zwee ' + clean + 'en');
-    add('zwee ' + clean + 'er');
-    add('zwee ' + clean + 's');
-    add('zwee ' + clean);
-  }
-
-  if(clean.endsWith('en')){
-    add(article + clean.slice(0, -2));
-    add(article + clean.replace(/en$/, 'er'));
-  }
-
-  if(clean.endsWith('er')){
-    add(article + clean + 'en');
-    add(article + clean.replace(/er$/, 'en'));
-  }
-
-  if(clean.includes('ä')){
-    add(article + clean.replace(/ä/g, 'a'));
-  }
-
-  if(clean.includes('é')){
-    add(article + clean.replace(/é/g, 'e'));
-  }
-
-  if(clean === 'Kéi'){
-    add('zwou Kouen');
-    add('zwou Kéien');
-  }
-
-  if(clean === 'Hénger'){
-    add('zwee Hongen');
-    add('zwee Honger');
-  }
-
-  if(clean === 'Källef'){
-    add('zwee Kallefen');
-    add('zwee Kallefer');
-  }
-
-  if(clean === 'Lämmercher'){
-    add('zwee Lämmchen');
-    add('zwee Lämmerchen');
-  }
-
-  if(clean === 'Jippelcher'){
-    add('zwee Jippelchen');
-    add('zwee Jippelcheren');
-  }
-
-  if(clean === 'Fierkelen'){
-    add('zwee Fierkeler');
-    add('zwee Fierkel');
-  }
-
-  if(clean === 'Baueren'){
-    add('zwee Bauers');
-    add('zwee Baueren');
-  }
-
-  if(clean === 'Ieselen'){
-    add('zwee Ieseler');
-    add('zwee Iesel');
-  }
-
-  if(clean === 'Geessen'){
-    add('zwou Geesser');
-    add('zwou Geess');
-  }
-
-  if(clean === 'Inten'){
-    add('zwou Inter');
-    add('zwou Int');
-  }
-
-  if(clean === 'Päerd'){
-    add('zwee Päerder');
-    add('zwee Paerden');
-  }
-
-  if(clean === 'Fillen'){
-    add('zwee Filler');
-    add('zwee Fillens');
-  }
-
-  if(clean === 'Schwäin'){
-    add('zwee Schwäinen');
-    add('zwee Schwäiner');
-  }
-
-  if(clean === 'Schof'){
-    add('zwee Schofer');
-    add('zwee Schofen');
-  }
-
-  const result = Array.from(wrongs).slice(0, 2);
-
-  while(result.length < 2){
-    result.push(article + clean + (result.length === 0 ? 'en' : 'er'));
-  }
-
-  return result;
-}
-
-function initPluralGame(){
-  pluralOrder = shuffle(ITEMS.map(item => {
-    const wrong = buildWrongPlurals(item);
-    const options = shuffle([item.plural, ...wrong]);
-    return { ...item, options };
-  }));
-  pluralIndex = 0;
-  pluralLocked = false;
-}
-
-function renderPluralGame(){
-  const item = pluralOrder[pluralIndex];
-
-  if(!item){
-    initPluralGame();
-    return renderPluralGame();
-  }
-
-  pluralLocked = false;
-
-  let html = '<div class="pluralWrap">';
-  html += `<div class="pluralPrompt"><img src="${item.img}" alt="" /></div>`;
-  html += '<div class="pluralChoices">';
-  item.options.forEach(opt => {
-    html += `<button class="pluralBtn" data-value="${opt}">${opt}</button>`;
-  });
-  html += '</div></div>';
-
-  gameArea.innerHTML = html;
-
-  gameArea.querySelectorAll('.pluralBtn').forEach(btn => {
-    btn.onclick = function(){
-      if(pluralLocked) return;
-
-      const value = btn.getAttribute('data-value');
-
-      if(value === item.plural){
-        pluralLocked = true;
-        btn.classList.add('good');
-        setTimeout(function(){
-          pluralIndex++;
-          if(pluralIndex >= pluralOrder.length){
-            initPluralGame();
-          }
-          renderPluralGame();
-        }, 550);
-      }else{
-        btn.classList.add('bad');
-        setTimeout(function(){
-          btn.classList.remove('bad');
-        }, 450);
-      }
-    };
-  });
-}
-
-function renderCurrentGame(){
-  stopAudio();
-  updateTopBar();
-
-  if(currentGame === 0){
-    renderListenGame();
-  }else if(currentGame === 1){
-    renderMemoryGame();
-  }else{
-    renderPluralGame();
-  }
-}
-
-prevBtn.onclick = function(){
-  if(currentGame === 0) return;
-  currentGame--;
-  renderCurrentGame();
-};
-
-nextBtn.onclick = function(){
-  if(currentGame === 2) return;
-  currentGame++;
-  renderCurrentGame();
-};
-
-initListenGame();
-initMemoryGame();
-initPluralGame();
-renderCurrentGame();
+sortReset.onclick = buildSort;
+buildSort();
 </script>
+
 </body>
 </html>
